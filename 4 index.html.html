@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste 4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 180px;
+            background-color: black;
+            color: white;
+        }
+
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border: solid 5px;
+        }
+
+        th, td {
+            border: 1px solid #110464;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #0c088d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Percentual de Representação por Estado</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Estado</th>
+                <th>Faturamento Mensal (R$)</th>
+                <th>Percentual de Representação %</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaCorpo"></tbody>
+    </table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            calcularPercentuais();
+        });
+
+        function calcularPercentuais() {
+            var estados = [
+                { estado: 'SP', faturamento: 67836.43 },
+                { estado: 'RJ', faturamento: 36678.66 },
+                { estado: 'MG', faturamento: 29229.88 },
+                { estado: 'ES', faturamento: 27165.48 },
+                { estado: 'Outros', faturamento: 19849.53 }
+            ];
+
+            var totalFaturamento = estados.reduce((total, estado) => total + estado.faturamento, 0);
+
+            var tabelaCorpo = document.getElementById('tabelaCorpo');
+            tabelaCorpo.innerHTML = '';
+
+            estados.forEach(function(estado) {
+                var percentual = (estado.faturamento / totalFaturamento) * 100;
+
+                var newRow = tabelaCorpo.insertRow();
+                var cellEstado = newRow.insertCell(0);
+                var cellFaturamento = newRow.insertCell(1);
+                var cellPercentual = newRow.insertCell(2);
+
+                cellEstado.innerHTML = estado.estado;
+                cellFaturamento.innerHTML = estado.faturamento.toFixed(2);
+                cellPercentual.innerHTML = percentual.toFixed(2) + '%';
+            });
+        }
+    </script>
+</body>
+</html>

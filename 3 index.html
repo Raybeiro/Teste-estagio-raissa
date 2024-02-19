@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TESTE 3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 200px;
+            background-color: black;
+            color: white
+        }
+
+        button {
+            padding: 8px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #resultado {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Faturamento Mensal TARGET SISTEMAS</h1>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcular() {
+            var faturamento = [
+                { "dia": 1, "valor": 22174.1664 },
+                { "dia": 2, "valor": 24537.6698 },
+                { "dia": 3, "valor": 26139.6134 },
+                { "dia": 4, "valor": 26742.6612 },
+                { "dia": 5, "valor": 42889.2258 },
+                { "dia": 6, "valor": 46251.174 },
+                { "dia": 7, "valor":11191.4722 },
+                { "dia": 8, "valor": 3847.4823 },
+                { "dia": 9, "valor": 373.7838 },
+                { "dia": 10, "valor": 2659.7563 },
+                { "dia": 11, "valor": 48924.2448 },
+                { "dia": 12, "valor": 18419.2614 },
+                { "dia": 13, "valor": 35240.1826 },
+                { "dia": 14, "valor": 43829.1667 },
+                { "dia": 15, "valor": 18235.6852 },
+                { "dia": 16, "valor": 4355.0662 },
+                { "dia": 17, "valor": 13327.1025 },
+                { "dia": 18, "valor": 25681.8318 },
+                { "dia": 19, "valor": 1718.1221 },
+                { "dia": 20, "valor": 13220.495 },
+                { "dia": 21, "valor": 8414.61 },
+            ];
+
+            var faturamentosValidos = faturamento.filter(function (item) {
+                return item.valor > 0;
+            });
+
+            if (faturamentosValidos.length === 0) {
+                document.getElementById('resultado').innerHTML = "Não há valores válidos de faturamento.";
+                return;
+            }
+
+            var menorValor = Math.min(...faturamentosValidos.map(item => item.valor));
+            var maiorValor = Math.max(...faturamentosValidos.map(item => item.valor));
+            var mediaMensal = faturamentosValidos.reduce((acc, cur) => acc + cur.valor, 0) / faturamentosValidos.length;
+            var diasAcimaDaMedia = faturamentosValidos.filter(function (item) {
+                return item.valor > mediaMensal;
+            }).length;
+
+            document.getElementById('resultado').innerHTML = "Menor valor de faturamento: " + menorValor.toFixed(2) + "<br>" +
+                                                            "Maior valor de faturamento: " + maiorValor.toFixed(2) + "<br>" +
+                                                            "Dias acima da média: " + diasAcimaDaMedia;
+        }
+    </script>
+</body>
+</html>
